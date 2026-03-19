@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:Arial;">
+
+    <form method="POST" style="background:white; padding:30px; border-radius:10px;">
+        {% csrf_token %}
+
+        <h2>🔐 Acceso al Sistema</h2>
+
+        <input type="text" name="username" placeholder="Usuario" required><br><br>
+        <input type="password" name="password" placeholder="Contraseña" required><br><br>
+
+        <button style="padding:10px; background:#007bff; color:white; border:none;">
+            Ingresar
+        </button>
+    </form>
+
+</body>
+</html>
