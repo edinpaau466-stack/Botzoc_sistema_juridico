@@ -2,42 +2,44 @@
 
 {% block content %}
 
-<h1>📅 Audiencias</h1>
+<h1>⚖️ Audiencias</h1>
 
-<!-- BUSCADOR -->
-<form method="GET">
-    <input type="text" name="buscar" placeholder="🔍 Buscar por juzgado">
-    <button type="submit">Buscar</button>
-</form>
-
-<br>
-
-<!-- FORMULARIO -->
 <form method="POST">
     {% csrf_token %}
 
-    <select name="expediente" required>
-        {% for exp in expedientes %}
-            <option value="{{ exp.id }}">{{ exp.numero_expediente }}</option>
-        {% endfor %}
-    </select>
+    <input type="text" name="expediente" placeholder="Expediente ID">
+    <input type="date" name="fecha">
+    <input type="time" name="hora">
+    <input type="text" name="juzgado" placeholder="Juzgado">
+    <input type="text" name="tipo" placeholder="Tipo">
 
-    <input type="date" name="fecha" required>
-    <input type="time" name="hora" required>
-    <input type="text" name="juzgado" placeholder="Juzgado" required>
-    <input type="text" name="tipo" placeholder="Tipo de audiencia" required>
+    <br><br>
 
-    <button type="submit">Agregar Audiencia</button>
+    <button style="background:#22c55e; padding:10px; border:none; border-radius:8px; color:white;">
+        + Agregar Audiencia
+    </button>
 </form>
 
 <br><br>
 
-<!-- LISTA -->
 {% for audiencia in audiencias %}
-    <div>
-        {{ audiencia.fecha }} - {{ audiencia.juzgado }}
-        <a href="/eliminar_audiencia/{{ audiencia.id }}/">❌ Eliminar</a>
-    </div>
+<div style="background:#1e293b; padding:15px; margin-bottom:10px; border-radius:10px; color:white;">
+
+    {{ audiencia.juzgado }} - {{ audiencia.fecha }}
+
+    <a href="/eliminar_audiencia/{{ audiencia.id }}/"
+       onclick="return confirm('¿Eliminar esta audiencia?')">
+
+        <button 
+        style="background:#ef4444; float:right; color:white; border:none; padding:6px 12px; border-radius:8px; font-size:13px; cursor:pointer;"
+        onmouseover="this.style.background='#dc2626'"
+        onmouseout="this.style.background='#ef4444'">
+            🗑 Eliminar
+        </button>
+
+    </a>
+
+</div>
 {% endfor %}
 
 {% endblock %}

@@ -4,7 +4,6 @@
 
 <h1>👤 Clientes</h1>
 
-<!-- FORMULARIO -->
 <form method="POST">
     {% csrf_token %}
 
@@ -14,23 +13,31 @@
     <input type="text" name="proceso" placeholder="Proceso">
 
     <br><br>
-    <button style="background:green; padding:10px; border:none; border-radius:8px; color:white;">
+
+    <button style="background:#22c55e; padding:10px; border:none; border-radius:8px; color:white; cursor:pointer;">
         + Agregar Cliente
     </button>
 </form>
 
 <br><br>
 
-<!-- LISTA DINÁMICA -->
 {% for cliente in clientes %}
 <div style="background:#1e293b; padding:15px; margin-bottom:10px; border-radius:10px; color:white;">
+
     {{ cliente.nombre }}
 
-    <a href="/eliminar/{{ cliente.id }}/">
-        <button style="background:red; float:right; color:white; border:none; padding:5px 10px; border-radius:5px;">
-            Eliminar
+    <a href="/eliminar/{{ cliente.id }}/"
+       onclick="return confirm('¿Seguro que deseas eliminar este cliente?')">
+
+        <button 
+        style="background:#ef4444; float:right; color:white; border:none; padding:6px 12px; border-radius:8px; font-size:13px; cursor:pointer;"
+        onmouseover="this.style.background='#dc2626'"
+        onmouseout="this.style.background='#ef4444'">
+            🗑 Eliminar
         </button>
+
     </a>
+
 </div>
 {% endfor %}
 

@@ -1,45 +1,42 @@
-% extends 'base.html' %}
+k{% extends 'base.html' %}
 
 {% block content %}
 
-<h1>📌 Recordatorios</h1>
+<h1>⏰ Recordatorios</h1>
 
-<!-- BUSCADOR -->
-<form method="GET">
-    <input type="text" name="buscar" placeholder="Buscar recordatorio...">
-    <button type="submit">Buscar</button>
-</form>
-
-<hr>
-
-<!-- FORMULARIO -->
 <form method="POST">
     {% csrf_token %}
-    <input type="text" name="descripcion" placeholder="Descripción" required>
-    <input type="date" name="fecha" required>
-    <button type="submit">Agregar</button>
+
+    <input type="text" name="descripcion" placeholder="Descripción">
+    <input type="date" name="fecha">
+
+    <br><br>
+
+    <button style="background:#22c55e; padding:10px; border:none; border-radius:8px; color:white;">
+        + Agregar Recordatorio
+    </button>
 </form>
 
-<hr>
+<br><br>
 
-<!-- LISTA -->
-<table border="1">
-    <tr>
-        <th>Descripción</th>
-        <th>Fecha</th>
-        <th>Acción</th>
-    </tr>
+{% for recordatorio in recordatorios %}
+<div style="background:#1e293b; padding:15px; margin-bottom:10px; border-radius:10px; color:white;">
 
-    {% for r in recordatorios %}
-    <tr>
-        <td>{{ r.descripcion }}</td>
-        <td>{{ r.fecha }}</td>
-        <td>
-            <a href="/eliminar_recordatorio/{{ r.id }}/">❌ Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
+    {{ recordatorio.descripcion }} - {{ recordatorio.fecha }}
 
-</table>
+    <a href="/eliminar_recordatorio/{{ recordatorio.id }}/"
+       onclick="return confirm('¿Eliminar este recordatorio?')">
+
+        <button 
+        style="background:#ef4444; float:right; color:white; border:none; padding:6px 12px; border-radius:8px; font-size:13px; cursor:pointer;"
+        onmouseover="this.style.background='#dc2626'"
+        onmouseout="this.style.background='#ef4444'">
+            🗑 Eliminar
+        </button>
+
+    </a>
+
+</div>
+{% endfor %}
 
 {% endblock %}
