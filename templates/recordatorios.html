@@ -1,0 +1,45 @@
+% extends 'base.html' %}
+
+{% block content %}
+
+<h1>📌 Recordatorios</h1>
+
+<!-- BUSCADOR -->
+<form method="GET">
+    <input type="text" name="buscar" placeholder="Buscar recordatorio...">
+    <button type="submit">Buscar</button>
+</form>
+
+<hr>
+
+<!-- FORMULARIO -->
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="descripcion" placeholder="Descripción" required>
+    <input type="date" name="fecha" required>
+    <button type="submit">Agregar</button>
+</form>
+
+<hr>
+
+<!-- LISTA -->
+<table border="1">
+    <tr>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Acción</th>
+    </tr>
+
+    {% for r in recordatorios %}
+    <tr>
+        <td>{{ r.descripcion }}</td>
+        <td>{{ r.fecha }}</td>
+        <td>
+            <a href="/eliminar_recordatorio/{{ r.id }}/">❌ Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

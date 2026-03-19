@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>📅 Audiencias</h1>
+
+<!-- BUSCADOR -->
+<form method="GET">
+    <input type="text" name="buscar" placeholder="🔍 Buscar por juzgado">
+    <button type="submit">Buscar</button>
+</form>
+
+<br>
+
+<!-- FORMULARIO -->
+<form method="POST">
+    {% csrf_token %}
+
+    <select name="expediente" required>
+        {% for exp in expedientes %}
+            <option value="{{ exp.id }}">{{ exp.numero_expediente }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="date" name="fecha" required>
+    <input type="time" name="hora" required>
+    <input type="text" name="juzgado" placeholder="Juzgado" required>
+    <input type="text" name="tipo" placeholder="Tipo de audiencia" required>
+
+    <button type="submit">Agregar Audiencia</button>
+</form>
+
+<br><br>
+
+<!-- LISTA -->
+{% for audiencia in audiencias %}
+    <div>
+        {{ audiencia.fecha }} - {{ audiencia.juzgado }}
+        <a href="/eliminar_audiencia/{{ audiencia.id }}/">❌ Eliminar</a>
+    </div>
+{% endfor %}
+
+{% endblock %}

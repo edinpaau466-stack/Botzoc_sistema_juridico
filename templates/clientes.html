@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>👤 Clientes</h1>
+
+<!-- FORMULARIO -->
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="telefono" placeholder="Teléfono">
+    <input type="email" name="correo" placeholder="Correo">
+    <input type="text" name="proceso" placeholder="Proceso">
+
+    <br><br>
+    <button style="background:green; padding:10px; border:none; border-radius:8px; color:white;">
+        + Agregar Cliente
+    </button>
+</form>
+
+<br><br>
+
+<!-- LISTA DINÁMICA -->
+{% for cliente in clientes %}
+<div style="background:#1e293b; padding:15px; margin-bottom:10px; border-radius:10px; color:white;">
+    {{ cliente.nombre }}
+
+    <a href="/eliminar/{{ cliente.id }}/">
+        <button style="background:red; float:right; color:white; border:none; padding:5px 10px; border-radius:5px;">
+            Eliminar
+        </button>
+    </a>
+</div>
+{% endfor %}
+
+{% endblock %}
