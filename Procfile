@@ -1,1 +1,1 @@
-web: gunicorn Botzoc_system.wsgi
+web: gunicorn Botzoc_system.wsgi:application
