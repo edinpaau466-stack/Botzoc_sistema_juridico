@@ -7,6 +7,6 @@ def inicio(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', inicio),
-    path('', include('clientes.urls')),
+    path('', inicio),  # redirige al inicio
+    path('clientes/', include('clientes.urls')),
 ]
