@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Clientes</title>
+</head>
+<body>
+
+<h1>📁 Sistema de Clientes</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="nombre" placeholder="Nombre completo"><br><br>
+    <input type="text" name="dpi" placeholder="DPI"><br><br>
+    <input type="text" name="telefono" placeholder="Teléfono"><br><br>
+    <input type="email" name="correo" placeholder="Correo"><br><br>
+    <input type="text" name="direccion" placeholder="Dirección"><br><br>
+    <input type="text" name="tipo_cliente" placeholder="Tipo de cliente"><br><br>
+    <input type="text" name="estado" placeholder="Estado del caso"><br><br>
+    <textarea name="observaciones" placeholder="Observaciones"></textarea><br><br>
+
+    <button type="submit">Guardar Cliente</button>
+</form>
+
+<hr>
+
+<h2>Lista de clientes</h2>
+
+{% for cliente in clientes %}
+    <p>
+        <b>{{ cliente.nombre }}</b><br>
+        DPI: {{ cliente.dpi }}<br>
+        Teléfono: {{ cliente.telefono }}<br>
+        Correo: {{ cliente.correo }}<br>
+        Dirección: {{ cliente.direccion }}<br>
+        Tipo: {{ cliente.tipo_cliente }}<br>
+        Estado: {{ cliente.estado }}<br>
+        Observaciones: {{ cliente.observaciones }}<br><br>
+
+        <a href="/clientes/editar/{{ cliente.id }}/">✏️ Editar</a>
+        |
+        <a href="/clientes/eliminar/{{ cliente.id }}/">❌ Eliminar</a>
+    </p>
+    <hr>
+{% endfor %}
+
+</body>
+</html>

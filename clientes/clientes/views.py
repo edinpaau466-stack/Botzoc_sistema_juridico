@@ -1,4 +1,4 @@
-kfrom django.shortcuts import render, redirect
+from django.shortcuts import render, redirect
 from .models import Cliente
 
 def clientes_view(request):

@@ -1,0 +1,16 @@
+<h2>Editar Audiencia</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="tipo" value="{{ audiencia.tipo }}"><br>
+    <input type="text" name="proceso" value="{{ audiencia.proceso }}"><br>
+    <input type="text" name="juzgado" value="{{ audiencia.juzgado }}"><br>
+    <input type="date" name="fecha" value="{{ audiencia.fecha }}"><br>
+    <input type="time" name="hora" value="{{ audiencia.hora }}"><br>
+    <input type="text" name="descripcion" value="{{ audiencia.descripcion }}"><br>
+
+    <button type="submit">Guardar cambios</button>
+</form>
+
+<a href="/audiencias/">Volver</a>
