@@ -40,3 +40,5 @@ def audiencias(request):
 # RECORDATORIOS
 def recordatorios(request):
     return render(request, 'clientes/recordatorios.html')
+def inicio(request):
+    return render(request, 'clientes/inicio.html')
