@@ -122,3 +122,10 @@ def editar_audiencia(request, id):
         return redirect('audiencias')
 
     return render(request, 'clientes/editar_audiencia.html', {'audiencia': audiencia})
+from django.shortcuts import redirect
+from .models import Cliente
+
+def eliminar(request, id):
+    cliente = Cliente.objects.get(id=id)
+    cliente.delete()
+    return redirect('clientes')
