@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,7 @@
             text-decoration: none;
             font-size: 18px;
             border-radius: 10px;
+            transition: 0.3s;
         }
 
         .btn:hover {
@@ -42,15 +44,15 @@
 <div class="container">
     <h1>⚖️ Bufete Jurídico Botzoc</h1>
 
-    <!-- LOGO SIMPLE (NO FALLA) -->
     <div class="logo">⚖️</div>
 
     <p>Sistema profesional de gestión legal</p>
 
     <br>
 
-    <!-- BOTÓN CORRECTO -->
-    <a class="btn" href="/clientes/">Entrar al Sistema</a>
+    <!-- BOTÓN YA CORREGIDO -->
+    <a class="btn" href="{% url 'panel' %}">Entrar al Sistema</a>
+
 </div>
 
 </body>
