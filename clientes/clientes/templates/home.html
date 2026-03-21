@@ -1,10 +1,121 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bufete Jurídico Botzoc</title>
+    <title>Panel Jurídico Botzoc</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            position: fixed;
+            background: #1e3c72;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover {
+            background: #2a5298;
+        }
+
+        .content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .btn {
+            background: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Bienvenido al Sistema Jurídico ⚖️</h1>
-    <p>Edin Leonel Botzoc Paau</p>
+
+<div class="sidebar">
+    <h2>⚖️ Bufete</h2>
+
+    <a href="/clientes/">👤 Clientes</a>
+    <a href="/clientes/audiencias/">📅 Audiencias</a>
+    <a href="/clientes/recordatorios/">⏰ Recordatorios</a>
+</div>
+
+<div class="content">
+
+    <h1>Bienvenido Edin 👨‍⚖️</h1>
+
+    <!-- CLIENTES -->
+    <div class="card">
+        <h2>Agregar Cliente</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="nombre" placeholder="Nombre">
+            <input type="text" name="dpi" placeholder="DPI">
+            <input type="text" name="telefono" placeholder="Teléfono">
+            <input type="text" name="correo" placeholder="Correo">
+            <input type="text" name="direccion" placeholder="Dirección">
+            <input type="text" name="tipo" placeholder="Tipo de cliente">
+            <input type="text" name="estado" placeholder="Estado">
+            <textarea name="observaciones" placeholder="Observaciones"></textarea>
+
+            <button class="btn">Agregar Cliente</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Clientes</h2>
+
+        {% for cliente in clientes %}
+            <p><b>{{ cliente.nombre }}</b></p>
+            <p>DPI: {{ cliente.dpi }}</p>
+            <p>Teléfono: {{ cliente.telefono }}</p>
+            <p>Correo: {{ cliente.correo }}</p>
+            <p>Dirección: {{ cliente.direccion }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+
+</div>
+
 </body>
 </html>
