@@ -1,8 +1,7 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bufete Jurídico Botzoc</title>
+    <title>Bufete Botzoc</title>
     <style>
         body {
             background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
@@ -10,20 +9,16 @@
             text-align: center;
             font-family: Arial;
         }
-
         .container {
             margin-top: 100px;
         }
-
         h1 {
             font-size: 40px;
         }
-
-        .logo {
-            font-size: 80px;
+        img {
+            width: 200px;
             margin: 20px;
         }
-
         .btn {
             background: #00c853;
             padding: 15px 30px;
@@ -31,11 +26,6 @@
             text-decoration: none;
             font-size: 18px;
             border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background: #00a844;
         }
     </style>
 </head>
@@ -44,15 +34,13 @@
 <div class="container">
     <h1>⚖️ Bufete Jurídico Botzoc</h1>
 
-    <div class="logo">⚖️</div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Lady_Justice.png/240px-Lady_Justice.png">
 
     <p>Sistema profesional de gestión legal</p>
 
     <br>
 
-    <!-- BOTÓN YA CORREGIDO -->
-    <a class="btn" href="{% url 'panel' %}">Entrar al Sistema</a>
-
+    <a class="btn" href="/clientes/panel/">Entrar al Sistema</a>
 </div>
 
 </body>

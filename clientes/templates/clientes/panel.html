@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bufete Botzoc</title>
-    <style>
-        body {
-            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-            color: white;
-            text-align: center;
-            font-family: Arial;
-        }
-        .container {
-            margin-top: 100px;
-        }
-        h1 {
-            font-size: 40px;
-        }
-        img {
-            width: 200px;
-            margin: 20px;
-        }
-        .btn {
-            background: #00c853;
-            padding: 15px 30px;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 10px;
-        }
-    </style>
+    <title>Panel - Bufete Botzoc</title>
 </head>
-<body>
+<body style="background:#0f2027; color:white; text-align:center; font-family:Arial;">
 
-<div class="container">
-    <h1>⚖️ Bufete Jurídico Botzoc</h1>
+<h1>⚖️ Panel del Sistema</h1>
 
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Lady_Justice.png/240px-Lady_Justice.png">
+<a href="?seccion=clientes">Clientes</a> |
+<a href="?seccion=audiencias">Audiencias</a> |
+<a href="?seccion=recordatorios">Recordatorios</a>
 
-    <p>Sistema profesional de gestión legal</p>
+<hr>
 
-    <br>
+{% if seccion == "clientes" %}
+    <h2>Lista de Clientes</h2>
+    {% for cliente in clientes %}
+        <p>{{ cliente.nombre }}</p>
+    {% empty %}
+        <p>No hay clientes</p>
+    {% endfor %}
+{% endif %}
 
-    <a class="btn" href="/clientes/panel/">Entrar al Sistema</a>
-</div>
+{% if seccion == "audiencias" %}
+    <h2>Audiencias</h2>
+    {% for audiencia in audiencias %}
+        <p>{{ audiencia }}</p>
+    {% empty %}
+        <p>No hay audiencias</p>
+    {% endfor %}
+{% endif %}
+
+{% if seccion == "recordatorios" %}
+    <h2>Recordatorios</h2>
+    {% for r in recordatorios %}
+        <p>{{ r }}</p>
+    {% empty %}
+        <p>No hay recordatorios</p>
+    {% endfor %}
+{% endif %}
 
 </body>
 </html>
