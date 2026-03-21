@@ -10,7 +10,7 @@ def home(request):
 
 
 # =========================
-# PANEL (Una sola app)
+# PANEL PRINCIPAL
 # =========================
 def panel(request):
     seccion = request.GET.get('seccion', 'clientes')
@@ -48,7 +48,7 @@ def clientes(request):
             estado=request.POST['estado'],
             observaciones=request.POST['observaciones']
         )
-        return redirect('/panel/?seccion=clientes')
+        return redirect('/clientes/panel/?seccion=clientes')
 
     return render(request, 'clientes/clientes.html', {'clientes': clientes})
 
@@ -56,7 +56,7 @@ def clientes(request):
 def eliminar(request, id):
     cliente = Cliente.objects.get(id=id)
     cliente.delete()
-    return redirect('/panel/?seccion=clientes')
+    return redirect('/clientes/panel/?seccion=clientes')
 
 
 def editar(request, id):
@@ -73,7 +73,7 @@ def editar(request, id):
         cliente.observaciones = request.POST['observaciones']
         cliente.save()
 
-        return redirect('/panel/?seccion=clientes')
+        return redirect('/clientes/panel/?seccion=clientes')
 
     return render(request, 'clientes/editar.html', {'cliente': cliente})
 
@@ -87,7 +87,6 @@ def audiencias(request):
 
     if request.method == 'POST':
         cliente_id = request.POST['cliente']
-
         cliente = Cliente.objects.get(id=cliente_id)
 
         Audiencia.objects.create(
@@ -100,7 +99,7 @@ def audiencias(request):
             descripcion=request.POST['descripcion']
         )
 
-        return redirect('/panel/?seccion=audiencias')
+        return redirect('/clientes/panel/?seccion=audiencias')
 
     return render(request, 'clientes/audiencias.html', {
         'clientes': clientes,
@@ -111,7 +110,7 @@ def audiencias(request):
 def eliminar_audiencia(request, id):
     audiencia = Audiencia.objects.get(id=id)
     audiencia.delete()
-    return redirect('/panel/?seccion=audiencias')
+    return redirect('/clientes/panel/?seccion=audiencias')
 
 
 # =========================
