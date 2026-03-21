@@ -25,3 +25,13 @@ class Audiencia(models.Model):
 
     def __str__(self):
         return f"{self.cliente.nombre} - {self.tipo} - {self.fecha}"
+class Expediente(models.Model):
+    numero = models.CharField(max_length=50)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    tipo_caso = models.CharField(max_length=100)
+    juzgado = models.CharField(max_length=100)
+    proceso = models.CharField(max_length=100)
+    fecha = models.DateField()
+
+    def __str__(self):
+        return self.numero
