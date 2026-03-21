@@ -7,7 +7,7 @@
 
 <hr>
 
-<form method="POST">
+<form method="POST" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
     {% csrf_token %}
 
     <select name="cliente">
@@ -31,25 +31,25 @@
 <h3>Lista de Audiencias</h3>
 
 {% for a in audiencias %}
-<div style="border:1px solid black; margin:10px; padding:10px;">
+<div style="border:1px solid black; margin:10px; padding:10px; border-radius:5px;">
     
-    <b>{{ a.cliente.nombre }}</b><br>
-    Tipo: {{ a.tipo }}<br>
-    Proceso: {{ a.proceso }}<br>
-    Juzgado: {{ a.juzgado }}<br>
-    Fecha: {{ a.fecha }}<br>
-    Hora: {{ a.hora }}<br>
+    <b>Cliente:</b> {{ a.cliente.nombre }}<br>
+    <b>Tipo:</b> {{ a.tipo }}<br>
+    <b>Proceso:</b> {{ a.proceso }}<br>
+    <b>Juzgado:</b> {{ a.juzgado }}<br>
+    <b>Fecha:</b> {{ a.fecha }}<br>
+    <b>Hora:</b> {{ a.hora }}<br>
+    <b>Descripción:</b> {{ a.descripcion }}<br><br>
 
-    <a href="{% url 'editar_audiencia' a.id %}">✏️ Editar</a>
-
-    <a href="/eliminar_audiencia/{{ a.id }}" 
-    onclick="return confirm('¿Seguro que deseas eliminar esta audiencia?')">
-    ❌ Eliminar
+    <a href="{% url 'eliminar_audiencia' a.id %}" onclick="return confirm('¿Seguro que deseas eliminar esta audiencia?')">
+        ❌ Eliminar
     </a>
 
 </div>
+
 {% empty %}
 <p>No hay audiencias</p>
 {% endfor %}
 
-<a href="/">Volver</a>
+<br>
+<a href="/">⬅ Volver</a>
