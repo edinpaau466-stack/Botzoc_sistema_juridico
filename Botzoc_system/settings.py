@@ -31,11 +31,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Botzoc_system.urls'
 
-# 🔥 CORREGIDO (TEMPLATES)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # usa templates dentro de apps
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,11 +64,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'es'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 STATIC_URL = 'static/'
