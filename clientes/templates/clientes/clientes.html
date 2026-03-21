@@ -1,47 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sistema de Clientes</title>
+    <title>Panel Jurídico - Bufete Botzoc</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            background: #1e3a8a;
+            color: white;
+            position: fixed;
+            padding: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            margin: 10px 0;
+            text-decoration: none;
+        }
+
+        .main {
+            margin-left: 240px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            background: green;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .cliente {
+            background: #0f172a;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>📁 Sistema de Clientes</h1>
+<div class="sidebar">
+    <h2>⚖ Bufete</h2>
+    <a href="/">Clientes</a>
+    <a href="/clientes/audiencias/">Audiencias</a>
+    <a href="/clientes/recordatorios/">Recordatorios</a>
+</div>
 
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="nombre" placeholder="Nombre completo"><br><br>
-    <input type="text" name="dpi" placeholder="DPI"><br><br>
-    <input type="text" name="telefono" placeholder="Teléfono"><br><br>
-    <input type="email" name="correo" placeholder="Correo"><br><br>
-    <input type="text" name="direccion" placeholder="Dirección"><br><br>
-    <input type="text" name="tipo_cliente" placeholder="Tipo de cliente"><br><br>
-    <input type="text" name="estado" placeholder="Estado del caso"><br><br>
-    <textarea name="observaciones" placeholder="Observaciones"></textarea><br><br>
+<div class="main">
+    <h2>Bienvenido Edin 👨‍⚖️</h2>
 
-    <button type="submit">Guardar Cliente</button>
-</form>
+    <div class="card">
+        <h3>Agregar Cliente</h3>
 
-<hr>
+        <form method="POST">
+            {% csrf_token %}
+            <input name="nombre" placeholder="Nombre">
+            <input name="dpi" placeholder="DPI">
+            <input name="telefono" placeholder="Teléfono">
+            <input name="correo" placeholder="Correo">
+            <input name="direccion" placeholder="Dirección">
+            <input name="tipo_cliente" placeholder="Tipo de cliente">
+            <input name="estado" placeholder="Estado">
+            <textarea name="observaciones" placeholder="Observaciones"></textarea>
 
-<h2>Lista de clientes</h2>
+            <button type="submit">Agregar Cliente</button>
+        </form>
+    </div>
 
-{% for cliente in clientes %}
-    <p>
-        <b>{{ cliente.nombre }}</b><br>
-        DPI: {{ cliente.dpi }}<br>
-        Teléfono: {{ cliente.telefono }}<br>
-        Correo: {{ cliente.correo }}<br>
-        Dirección: {{ cliente.direccion }}<br>
-        Tipo: {{ cliente.tipo_cliente }}<br>
-        Estado: {{ cliente.estado }}<br>
-        Observaciones: {{ cliente.observaciones }}<br><br>
+    <div class="card">
+        <h3>Clientes</h3>
 
-        <a href="/clientes/editar/{{ cliente.id }}/">✏️ Editar</a>
-        |
-        <a href="/clientes/eliminar/{{ cliente.id }}/">❌ Eliminar</a>
-    </p>
-    <hr>
-{% endfor %}
+        {% for c in clientes %}
+        <div class="cliente">
+            <strong>{{ c.nombre }}</strong><br>
+            DPI: {{ c.dpi }}<br>
+            Teléfono: {{ c.telefono }}<br>
+            Correo: {{ c.correo }}<br>
+            Dirección: {{ c.direccion }}<br>
+            Tipo: {{ c.tipo_cliente }}<br>
+            Estado: {{ c.estado }}<br>
+            Observaciones: {{ c.observaciones }}<br><br>
+
+            <a href="/editar/{{ c.id }}/">✏ Editar</a> |
+            <a href="/eliminar/{{ c.id }}/">❌ Eliminar</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 </body>
 </html>

@@ -1,3 +1,18 @@
-<h1>Recordatorios</h1>
-<p>Aquí verás tus recordatorios</p>
-<a href="/clientes/">Volver</a>
+<h2>Recordatorios ⏰</h2>
+
+<h3>Audiencias de mañana</h3>
+
+{% if audiencias %}
+    {% for a in audiencias %}
+        <p>
+            {{ a.cliente.nombre }} |
+            {{ a.fecha }} |
+            {{ a.hora }} |
+            {{ a.juzgado }}
+        </p>
+    {% endfor %}
+{% else %}
+    <p>No hay audiencias para mañana</p>
+{% endif %}
+
+<a href="/">Volver</a>
