@@ -135,3 +135,8 @@ def panel(request):
     return render(request, 'clientes/panel.html', {
         'seccion': seccion
     })
+def audiencias(request):
+    return render(request, 'clientes/audiencias.html')
+
+def recordatorios(request):
+    return render(request, 'clientes/recordatorios.html')
