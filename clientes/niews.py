@@ -1,12 +1,16 @@
-kfrom django.shortcuts import render, redirect
-from .models import Cliente
+from django.shortcuts import render
+from .models import Cliente, Audiencia, Expediente
 
-def clientes_view(request):
-    if request.method == "POST":
-        nombre = request.POST.get("nombre")
-        direccion = request.POST.get("direccion")
-        Cliente.objects.create(nombre=nombre, direccion=direccion)
-        return redirect("/clientes/")
+def panel(request):
+    seccion = request.GET.get('seccion', 'clientes')
 
     clientes = Cliente.objects.all()
-    return render(request, "clientes.html", {"clientes": clientes})
+    audiencias = Audiencia.objects.all()
+    expedientes = Expediente.objects.all()
+
+    return render(request, 'clientes/panel.html', {
+        'clientes': clientes,
+        'audiencias': audiencias,
+        'expedientes': expedientes,
+        'seccion': seccion
+    })

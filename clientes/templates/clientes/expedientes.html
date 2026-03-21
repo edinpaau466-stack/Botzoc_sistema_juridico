@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expedientes</title>
+</head>
+
+<body style="background:#0f2027; color:white; font-family:Arial;">
+
+<h1 style="text-align:center;">📁 Control de Expedientes</h1>
+
+<!-- BUSCADOR -->
+<form method="GET" style="text-align:center;">
+    <input type="text" name="buscar" placeholder="🔍 Buscar expediente..."
+           style="padding:8px; width:250px;">
+    <button type="submit">Buscar</button>
+</form>
+
+<hr>
+
+<!-- FORMULARIO -->
+<h2>➕ Nuevo Expediente</h2>
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="numero" placeholder="Número expediente"><br><br>
+
+    <select name="cliente">
+        {% for c in clientes %}
+        <option value="{{ c.id }}">{{ c.nombre }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <input type="text" name="tipo_caso" placeholder="Tipo de caso"><br><br>
+    <input type="text" name="juzgado" placeholder="Juzgado"><br><br>
+    <input type="text" name="proceso" placeholder="Proceso"><br><br>
+    <input type="date" name="fecha"><br><br>
+
+    <button type="submit">💾 Guardar</button>
+</form>
+
+<hr>
+
+<!-- TABLA TIPO EXCEL -->
+<h2>📊 Lista de Expedientes</h2>
+
+<table style="width:100%; border-collapse: collapse;">
+    <tr style="background:#203a43;">
+        <th>Número</th>
+        <th>Cliente</th>
+        <th>Tipo</th>
+        <th>Juzgado</th>
+        <th>Proceso</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for e in expedientes %}
+    <tr style="text-align:center; border-bottom:1px solid white;">
+        <td>{{ e.numero }}</td>
+        <td>{{ e.cliente.nombre }}</td>
+        <td>{{ e.tipo_caso }}</td>
+        <td>{{ e.juzgado }}</td>
+        <td>{{ e.proceso }}</td>
+        <td>{{ e.fecha }}</td>
+        <td>
+            <a href="/clientes/eliminar-expediente/{{ e.id }}/" style="color:red;">
+                ❌ Eliminar
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

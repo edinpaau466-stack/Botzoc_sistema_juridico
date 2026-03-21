@@ -1,16 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
+from django.shortcuts import render
 
-def inicio(request):
-    return redirect('/clientes/')
+def home(request):
+    return render(request, 'bufete.html')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    # Redirección inicial
-    path('', inicio),
-
-    # Sistema principal
+    path('', home),
     path('clientes/', include('clientes.urls')),
+    path('admin/', admin.site.urls),
 ]

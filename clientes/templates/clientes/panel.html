@@ -3,41 +3,135 @@
 <head>
     <title>Panel - Bufete Botzoc</title>
 </head>
+
 <body style="background:#0f2027; color:white; text-align:center; font-family:Arial;">
+
+<!-- 🏠 BOTÓN HOME -->
+<div style="position:absolute; top:20px; left:20px;">
+    <a href="/" style="font-size:25px; text-decoration:none; color:white;">🏠</a>
+</div>
 
 <h1>⚖️ Panel del Sistema</h1>
 
+<!-- 🔗 NAVEGACIÓN -->
 <a href="?seccion=clientes">Clientes</a> |
 <a href="?seccion=audiencias">Audiencias</a> |
-<a href="?seccion=recordatorios">Recordatorios</a>
+<a href="?seccion=expedientes">Expedientes</a>
 
 <hr>
 
-{% if seccion == "clientes" %}
-    <h2>Lista de Clientes</h2>
-    {% for cliente in clientes %}
-        <p>{{ cliente.nombre }}</p>
+<!-- ================= CLIENTES ================= -->
+{% if seccion == 'clientes' %}
+<h2>Clientes</h2>
+
+<!-- 🔍 BUSCADOR -->
+<form method="GET">
+    <input type="hidden" name="seccion" value="clientes">
+    <input type="text" name="buscar" placeholder="Buscar cliente...">
+    <button type="submit">🔍</button>
+</form>
+
+<br>
+
+<!-- 📝 FORMULARIO COMPLETO -->
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="telefono" placeholder="Teléfono" required>
+    <input type="text" name="dpi" placeholder="DPI">
+    <input type="email" name="correo" placeholder="Correo">
+    <input type="text" name="direccion" placeholder="Dirección">
+    <input type="text" name="tipo_caso" placeholder="Tipo de caso">
+    <input type="text" name="fecha_nacimiento" placeholder="Fecha Nac: 2000-05-15">
+    <button type="submit">Guardar</button>
+</form>
+
+<br>
+
+<!-- 📊 TABLA PROFESIONAL -->
+<table border="1" style="margin:auto; border-collapse: collapse; width:95%; background:white; color:black;">
+    <tr style="background:#333; color:white;">
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>DPI</th>
+        <th>Correo</th>
+        <th>Dirección</th>
+        <th>Tipo Caso</th>
+        <th>Fecha Nac.</th>
+    </tr>
+
+    {% for c in clientes %}
+    <tr>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.telefono }}</td>
+        <td>{{ c.dpi }}</td>
+        <td>{{ c.correo }}</td>
+        <td>{{ c.direccion }}</td>
+        <td>{{ c.tipo_caso }}</td>
+        <td>{{ c.fecha_nacimiento }}</td>
+    </tr>
     {% empty %}
-        <p>No hay clientes</p>
+    <tr>
+        <td colspan="7">No hay clientes</td>
+    </tr>
     {% endfor %}
+</table>
+
 {% endif %}
 
-{% if seccion == "audiencias" %}
-    <h2>Audiencias</h2>
-    {% for audiencia in audiencias %}
-        <p>{{ audiencia }}</p>
-    {% empty %}
-        <p>No hay audiencias</p>
-    {% endfor %}
+<!-- ================= AUDIENCIAS ================= -->
+{% if seccion == 'audiencias' %}
+<h2>Audiencias</h2>
+<form method="POST">
+    {% csrf_token %}
+
+    <select name="cliente">
+        {% for c in clientes %}
+        <option value="{{ c.id }}">{{ c.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="fecha" placeholder="Fecha audiencia (2026-03-21)">
+
+    <button type="submit">Guardar Audiencia</button>
+</form>
+
+<br>
+
+{% for a in audiencias %}
+<p>{{ a.cliente.nombre }} - {{ a.fecha }}</p>
+{% empty %}
+<p>No hay audiencias</p>
+{% endfor %}
+
 {% endif %}
 
-{% if seccion == "recordatorios" %}
-    <h2>Recordatorios</h2>
-    {% for r in recordatorios %}
-        <p>{{ r }}</p>
-    {% empty %}
-        <p>No hay recordatorios</p>
-    {% endfor %}
+<!-- ================= EXPEDIENTES ================= -->
+{% if seccion == 'expedientes' %}
+<h2>Expedientes</h2>
+<form method="POST">
+    {% csrf_token %}
+
+    <select name="cliente">
+        {% for c in clientes %}
+        <option value="{{ c.id }}">{{ c.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="numero" placeholder="Número expediente">
+    <input type="text" name="tipo_caso" placeholder="Tipo de caso">
+
+    <button type="submit">Guardar Expediente</button>
+</form>
+
+<br>
+
+{% for e in expedientes %}
+<p>{{ e.numero }} - {{ e.cliente.nombre }} - {{ e.tipo_caso }}</p>
+{% empty %}
+<p>No hay expedientes</p>
+{% endfor %}
+
 {% endif %}
 
 </body>
