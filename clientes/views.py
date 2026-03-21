@@ -140,3 +140,8 @@ def audiencias(request):
 
 def recordatorios(request):
     return render(request, 'clientes/recordatorios.html')
+def panel(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'clientes/clientes.html', {
+        'clientes': clientes
+    })
