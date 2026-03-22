@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Cliente</title>
+</head>
+<body>
+
+<h2>Editar Cliente</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input name="nombre" value="{{ cliente.nombre }}" placeholder="Nombre"><br><br>
+
+    <input name="telefono" value="{{ cliente.telefono }}" placeholder="Teléfono"><br><br>
+
+    <input name="dpi" value="{{ cliente.dpi }}" placeholder="DPI"><br><br>
+
+    <input name="correo" value="{{ cliente.correo }}" placeholder="Correo"><br><br>
+
+    <input name="direccion" value="{{ cliente.direccion }}" placeholder="Dirección"><br><br>
+
+    <input name="tipo_caso" value="{{ cliente.tipo_caso }}" placeholder="Tipo de caso"><br><br>
+
+    <button style="background:green;color:white;padding:10px;border:none;border-radius:6px;">
+        Guardar cambios
+    </button>
+
+</form>
+
+<br>
+
+<a href="/clientes/panel/?seccion=clientes">
+    ⬅ Volver al panel
+</a>
+
+</body>
+</html>

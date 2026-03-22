@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Expediente</title>
+</head>
+<body>
+
+<h2>Editar Expediente</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input name="numero" value="{{ expediente.numero }}"><br><br>
+    <input name="tipo_caso" value="{{ expediente.tipo_caso }}"><br><br>
+    <input name="estado" value="{{ expediente.estado }}"><br><br>
+    <input name="gaveta" value="{{ expediente.gaveta }}"><br><br>
+    <input name="archivo" value="{{ expediente.archivo }}"><br><br>
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+</body>
+</html>

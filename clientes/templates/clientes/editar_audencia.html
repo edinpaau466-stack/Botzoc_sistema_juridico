@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Audiencia</title>
+</head>
+<body>
+
+<h2>Editar Audiencia</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Fecha:</label><br>
+    <input type="date" name="fecha" value="{{ audiencia.fecha }}"><br><br>
+
+    <label>Hora:</label><br>
+    <input type="time" name="hora" value="{{ audiencia.hora }}"><br><br>
+
+    <label>Juzgado:</label><br>
+    <input type="text" name="juzgado" value="{{ audiencia.juzgado }}"><br><br>
+
+    <label>Estado:</label><br>
+    <input type="text" name="estado" value="{{ audiencia.estado }}"><br><br>
+
+    <label>Observaciones:</label><br>
+    <input type="text" name="observaciones" value="{{ audiencia.observaciones }}"><br><br>
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+<br>
+<a href="/clientes/panel/?seccion=audiencias">← Volver</a>
+
+</body>
+</html>

@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('clientes.urls')),
+    path('biblioteca/', include('biblioteca.urls')),
 ]
-from django.shortcuts import render
 
-def home(request):
-    return render(request, 'bufete.html')
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

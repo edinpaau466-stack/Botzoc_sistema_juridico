@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Audiencia</title>
+</head>
+<body>
+
+<h2>Editar Audiencia</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input name="fecha" value="{{ audiencia.fecha }}"><br><br>
+    <input name="hora" value="{{ audiencia.hora }}"><br><br>
+    <input name="juzgado" value="{{ audiencia.juzgado }}"><br><br>
+    <input name="estado" value="{{ audiencia.estado }}"><br><br>
+
+    <button type="submit">Guardar cambios</button>
+
+</form>
+
+</body>
+</html>

@@ -31,7 +31,7 @@
 <h3>Lista de Audiencias</h3>
 
 {% for a in audiencias %}
-<div style="border:1px solid black; margin:10px; padding:10px; border-radius:5px;">
+<div class="card" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-radius: 15px; padding:15px; margin-bottom:15px;">
     
     <b>Cliente:</b> {{ a.cliente.nombre }}<br>
     <b>Tipo:</b> {{ a.tipo }}<br>

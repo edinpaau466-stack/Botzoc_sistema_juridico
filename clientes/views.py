@@ -6,24 +6,13 @@ from datetime import datetime
 def panel(request):
     seccion = request.GET.get('seccion', 'clientes')
 
-    # ==================== CLIENTES ====================
+    clientes = Cliente.objects.all()
+    audiencias = Audiencia.objects.all()
+    expedientes = Expediente.objects.all()
+
+    # ================= CLIENTES =================
     if seccion == 'clientes':
         if request.method == 'POST':
-
-            fecha_input = request.POST.get('fecha_nacimiento')
-            fecha_nacimiento = None
-
-            if fecha_input:
-                try:
-                    # FORMATO GUATEMALA (día/mes/año)
-                    fecha_nacimiento = datetime.strptime(fecha_input, "%d/%m/%Y").date()
-                except Exception:
-                    try:
-                        # FORMATO ISO (año-mes-día)
-                        fecha_nacimiento = datetime.strptime(fecha_input, "%Y-%m-%d").date()
-                    except Exception:
-                        fecha_nacimiento = None
-
             Cliente.objects.create(
                 nombre=request.POST.get('nombre'),
                 telefono=request.POST.get('telefono'),
@@ -31,59 +20,44 @@ def panel(request):
                 correo=request.POST.get('correo'),
                 direccion=request.POST.get('direccion'),
                 tipo_caso=request.POST.get('tipo_caso'),
-                fecha_nacimiento=fecha_nacimiento
+                fecha_nacimiento=request.POST.get('fecha_nacimiento')
             )
-
             return redirect('/clientes/panel/?seccion=clientes')
 
-        clientes = Cliente.objects.all()
-
-    else:
-        clientes = Cliente.objects.all()
-
-    # ==================== AUDIENCIAS ====================
+    # ================= AUDIENCIAS =================
     if seccion == 'audiencias':
         if request.method == 'POST':
-            cliente_id = request.POST.get('cliente')
-            fecha = request.POST.get('fecha')
+            cliente = Cliente.objects.get(id=request.POST.get('cliente'))
 
-            if cliente_id:
-                cliente = Cliente.objects.get(id=cliente_id)
-
-                Audiencia.objects.create(
-                    cliente=cliente,
-                    fecha=fecha
-                )
-
+            Audiencia.objects.create(
+                cliente=cliente,
+                fecha=request.POST.get('fecha'),
+                hora=request.POST.get('hora'),
+                expediente=request.POST.get('expediente'),
+                tipo_caso=request.POST.get('tipo_caso'),
+                dpi=request.POST.get('dpi'),
+                correo=request.POST.get('correo'),
+                proceso=request.POST.get('proceso'),
+                juzgado=request.POST.get('juzgado'),
+                estado=request.POST.get('estado'),
+                observaciones=request.POST.get('observaciones')
+            )
             return redirect('/clientes/panel/?seccion=audiencias')
 
-        audiencias = Audiencia.objects.all()
-
-    else:
-        audiencias = Audiencia.objects.all()
-
-    # ==================== EXPEDIENTES ====================
+    # ================= EXPEDIENTES =================
     if seccion == 'expedientes':
         if request.method == 'POST':
-            cliente_id = request.POST.get('cliente')
-            numero = request.POST.get('numero')
-            tipo_caso = request.POST.get('tipo_caso')
+            cliente = Cliente.objects.get(id=request.POST.get('cliente'))
 
-            if cliente_id:
-                cliente = Cliente.objects.get(id=cliente_id)
-
-                Expediente.objects.create(
-                    cliente=cliente,
-                    numero=numero,
-                    tipo_caso=tipo_caso
-                )
-
+            Expediente.objects.create(
+                cliente=cliente,
+                numero=request.POST.get('numero'),
+                tipo_caso=request.POST.get('tipo_caso'),
+                estado=request.POST.get('estado'),
+                gaveta=request.POST.get('gaveta'),
+                archivo=request.POST.get('archivo')
+            )
             return redirect('/clientes/panel/?seccion=expedientes')
-
-        expedientes = Expediente.objects.all()
-
-    else:
-        expedientes = Expediente.objects.all()
 
     return render(request, 'clientes/panel.html', {
         'clientes': clientes,
@@ -91,3 +65,81 @@ def panel(request):
         'expedientes': expedientes,
         'seccion': seccion
     })
+
+
+# ================= EDITAR CLIENTE =================
+def editar_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+
+    if request.method == 'POST':
+        cliente.nombre = request.POST.get('nombre')
+        cliente.telefono = request.POST.get('telefono')
+        cliente.dpi = request.POST.get('dpi')
+        cliente.correo = request.POST.get('correo')
+        cliente.direccion = request.POST.get('direccion')
+        cliente.tipo_caso = request.POST.get('tipo_caso')
+        cliente.save()
+
+        return redirect('/clientes/panel/?seccion=clientes')
+
+    return render(request, 'clientes/editar_cliente.html', {'cliente': cliente})
+
+
+# ================= ELIMINAR CLIENTE =================
+def eliminar_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    cliente.delete()
+    return redirect('/clientes/panel/?seccion=clientes')
+
+
+# ================= EDITAR AUDIENCIA =================
+def editar_audiencia(request, id):
+    audiencia = Audiencia.objects.get(id=id)
+
+    if request.method == 'POST':
+        audiencia.fecha = request.POST.get('fecha')
+        audiencia.hora = request.POST.get('hora')
+        audiencia.expediente = request.POST.get('expediente')
+        audiencia.tipo_caso = request.POST.get('tipo_caso')
+        audiencia.dpi = request.POST.get('dpi')
+        audiencia.correo = request.POST.get('correo')
+        audiencia.proceso = request.POST.get('proceso')
+        audiencia.juzgado = request.POST.get('juzgado')
+        audiencia.estado = request.POST.get('estado')
+        audiencia.observaciones = request.POST.get('observaciones')
+        audiencia.save()
+
+        return redirect('/clientes/panel/?seccion=audiencias')
+
+    return render(request, 'clientes/editar_audiencia.html', {'audiencia': audiencia})
+
+
+# ================= ELIMINAR AUDIENCIA =================
+def eliminar_audiencia(request, id):
+    audiencia = Audiencia.objects.get(id=id)
+    audiencia.delete()
+    return redirect('/clientes/panel/?seccion=audiencias')
+
+
+# ================= EDITAR EXPEDIENTE =================
+def editar_expediente(request, id):
+    expediente = Expediente.objects.get(id=id)
+
+    if request.method == 'POST':
+        expediente.numero = request.POST.get('numero')
+        expediente.tipo_caso = request.POST.get('tipo_caso')
+        expediente.estado = request.POST.get('estado')
+        expediente.gaveta = request.POST.get('gaveta')
+        expediente.archivo = request.POST.get('archivo')
+        expediente.save()
+
+        return redirect('/clientes/panel/?seccion=expedientes')
+
+    return render(request, 'clientes/editar_expediente.html', {'expediente': expediente})
+
+
+# ================= ELIMINAR EXPEDIENTE =================
+def eliminar_expediente(request, id):
+    expediente = Expediente.objects.get(id=id)
+    expediente.delete()
+    return redirect('/clientes/panel/?seccion=expedientes')
